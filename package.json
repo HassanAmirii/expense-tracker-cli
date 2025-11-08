@@ -1,0 +1,24 @@
+{
+  "name": "expensecli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HassanAmirii/expense-tracker-cli.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/HassanAmirii/expense-tracker-cli/issues"
+  },
+  "homepage": "https://github.com/HassanAmirii/expense-tracker-cli#readme",
+  "dependencies": {
+    "minimist": "^1.2.8"
+  }
+}
