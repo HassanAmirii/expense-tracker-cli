@@ -65,3 +65,5 @@ function handleView() {
     console.error(error.message);
   }
 }
+
+function handleAdd() {}
