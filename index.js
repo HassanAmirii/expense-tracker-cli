@@ -1,14 +1,14 @@
 const fs = require("fs");
 const path = require("path");
 const taskFilePath = path.join(__dirname, "expenses.json");
-let dataObject;
+let dataObject = null;
 const minimist = require("minimist");
+const { json } = require("stream/consumers");
 //define option model
+
 const options = {
   string: ["description"],
-
   number: ["amount"],
-
   default: {
     description: "N/A",
     amount: 0,
@@ -19,6 +19,7 @@ const options = {
     amount: "a",
   },
 };
+
 const args = minimist(process.argv.slice(2), options);
 const transactionDescription = args.description;
 const transactionAmount = args.amount;
@@ -46,17 +47,20 @@ switch (command) {
   case "help":
   case undefined:
     console.log("Usage: node expensecli <command> [options]");
-    console.log("Commands: add, view");
+    console.log("Commands: add, view, delete, list, update, summary, help ");
     break;
   default:
     console.log(`unknown command: ${command}`);
 }
 
 function handleView() {
+  dataObject = {};
   try {
     const dataString = fs.readFileSync(taskFilePath, "utf8").trim();
-    if (getData === "") {
+    if (dataString !== "") {
+      dataObject = JSON.parse(dataString);
     }
+    console.log(dataObject);
   } catch (error) {
     console.error(error.message);
   }
