@@ -120,3 +120,14 @@ function handleAdd() {
     console.error(error);
   }
 }
+
+function handleSummary() {
+  try {
+    const expenses = handleView();
+    const totalAmount = expenses.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.Amount;
+    }, 0);
+  } catch (error) {
+    console.error;
+  }
+}
