@@ -62,11 +62,17 @@ switch (command) {
     break;
   case "help":
   case undefined:
-    console.log("Usage: node expensecli <command> [options]");
+    console.log(
+      "Usage: node expensecli <command> [options]: eg> add --description 'Lunch' --amount 20"
+    );
     console.log("Commands: add, view, delete, list, update, summary, help ");
     break;
   default:
     console.log(`unknown command: ${command}`);
+    console.log(
+      "Usage: node expensecli <command> [options]: eg> add --description 'Lunch' --amount 20"
+    );
+    console.log("Commands: add, view, delete, list, update, summary, help ");
 }
 
 function handleView() {
@@ -74,16 +80,17 @@ function handleView() {
     const dataString = fs.readFileSync(taskFilePath, "utf8").trim();
     if (dataString !== "") {
       dataObject = JSON.parse(dataString);
-      console.log(dataObject);
-      return;
+      return dataObject;
     }
     const emptyJson = "[]";
     fs.writeFileSync(taskFilePath, emptyJson);
-    console.log(emptyJson);
+    return [];
   } catch (error) {
     if (error.code === "ENOENT") {
+      console.log("could not find the task file path, \n create a new one");
       const emptyJson = "[]";
       fs.writeFileSync(taskFilePath, emptyJson);
+      return [];
     } else if (error.name === "SyntaxError") {
       console.error(`bad syntax in json: ${error.message}`);
     } else {
@@ -93,11 +100,10 @@ function handleView() {
 }
 
 function handleAdd() {
-  let idnum = 0;
-
   try {
     const expenses = handleView();
-    idnum = handleView.length + 1;
+    const idnum = expenses.length + 1;
+    console.log(idnum);
     const newExpense = {
       ID: idnum,
       Date: formattedDate,
@@ -106,7 +112,7 @@ function handleAdd() {
     };
 
     expenses.push(newExpense);
-    fs.writeFileSync(taskFilePath, JSON.stringify(expenses));
+    fs.writeFileSync(taskFilePath, JSON.stringify(expenses, null, 2));
     console.log("succesfully created a new expense");
     return newExpense;
   } catch (error) {

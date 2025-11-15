@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "ID": 1,
+    "Date": "2025-11-15",
+    "Description": "Lunch",
+    "Amount": 20
+  }
+]
