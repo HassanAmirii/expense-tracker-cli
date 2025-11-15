@@ -34,6 +34,7 @@ const day = String(today.getDate()).padStart(2, "0");
 
 // Combine the parts
 const formattedDate = `${year}-${month}-${day}`;
+console.log(formattedDate);
 
 const args = minimist(process.argv.slice(2), options);
 const transactionDescription = args.description;
@@ -91,10 +92,24 @@ function handleView() {
   }
 }
 
-console.log(handleView.length);
-
 function handleAdd() {
   let idnum = 0;
+
   try {
-  } catch (error) {}
+    const expenses = handleView();
+    idnum = handleView.length + 1;
+    const newExpense = {
+      ID: idnum,
+      Date: formattedDate,
+      Description: transactionDescription,
+      Amount: transactionAmount,
+    };
+
+    expenses.push(newExpense);
+    fs.writeFileSync(taskFilePath, JSON.stringify(expenses));
+    console.log("succesfully created a new expense");
+    return newExpense;
+  } catch (error) {
+    console.error(error);
+  }
 }
