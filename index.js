@@ -20,6 +20,21 @@ const options = {
   },
 };
 
+// handle date format :
+const today = new Date();
+
+// Get the year (e.g., 2024)
+const year = today.getFullYear();
+
+// Get the month (0-11, so add 1 for 1-12) and pad with '0'
+const month = String(today.getMonth() + 1).padStart(2, "0");
+
+// Get the day of the month and pad with '0'
+const day = String(today.getDate()).padStart(2, "0");
+
+// Combine the parts
+const formattedDate = `${year}-${month}-${day}`;
+
 const args = minimist(process.argv.slice(2), options);
 const transactionDescription = args.description;
 const transactionAmount = args.amount;
@@ -58,7 +73,8 @@ function handleView() {
     const dataString = fs.readFileSync(taskFilePath, "utf8").trim();
     if (dataString !== "") {
       dataObject = JSON.parse(dataString);
-      return dataObject;
+      console.log(dataObject);
+      return;
     }
     const emptyJson = "[]";
     fs.writeFileSync(taskFilePath, emptyJson);
@@ -73,4 +89,12 @@ function handleView() {
       console.error(error);
     }
   }
+}
+
+console.log(handleView.length);
+
+function handleAdd() {
+  let idnum = 0;
+  try {
+  } catch (error) {}
 }
