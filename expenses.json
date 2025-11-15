@@ -4,5 +4,11 @@
     "Date": "2025-11-15",
     "Description": "Lunch",
     "Amount": 20
+  },
+  {
+    "ID": 2,
+    "Date": "2025-11-15",
+    "Description": "Lunch",
+    "Amount": 250
   }
 ]

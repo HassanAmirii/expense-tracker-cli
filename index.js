@@ -127,7 +127,8 @@ function handleSummary() {
     const totalAmount = expenses.reduce((accumulator, currentValue) => {
       return accumulator + currentValue.Amount;
     }, 0);
+    console.log(`total expenses: ${totalAmount}`);
   } catch (error) {
-    console.error;
+    console.error(error);
   }
 }
