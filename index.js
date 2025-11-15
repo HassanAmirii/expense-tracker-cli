@@ -8,6 +8,7 @@ const { json } = require("stream/consumers");
 
 const options = {
   string: ["description"],
+  string: ["id"],
   number: ["amount"],
   default: {
     description: "N/A",
@@ -34,18 +35,15 @@ const day = String(today.getDate()).padStart(2, "0");
 
 // Combine the parts
 const formattedDate = `${year}-${month}-${day}`;
-
 const args = minimist(process.argv.slice(2), options);
 const transactionDescription = args.description;
 const transactionAmount = args.amount;
+const transactionID = args.id;
 const command = args._[0];
 
 switch (command) {
   case "add":
     handleAdd(args);
-    break;
-  case "view":
-    handleView(args);
     break;
   case "summary":
     handleSummary(args);
@@ -54,7 +52,7 @@ switch (command) {
     handleUpdate(args);
     break;
   case "list":
-    handleList(args);
+    handleView(args);
     break;
   case "delete":
     handleDelete(args);
@@ -128,6 +126,20 @@ function handleSummary() {
       return accumulator + currentValue.Amount;
     }, 0);
     console.log(`total expenses: ${totalAmount}`);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function handleDelete() {
+  try {
+    const expenses = handleView();
+    const idToRemove = transactionID;
+    const newExpense = expenses.filter((item) => item.ID !== idToRemove);
+    fs.writeFileSync(taskFilePath, JSON.stringify(newExpense, null, 2));
+    console.log("succesfully deleted expense");
+    console.log(newExpense);
+    return newExpense;
   } catch (error) {
     console.error(error);
   }
