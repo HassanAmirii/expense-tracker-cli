@@ -34,7 +34,6 @@ const day = String(today.getDate()).padStart(2, "0");
 
 // Combine the parts
 const formattedDate = `${year}-${month}-${day}`;
-console.log(formattedDate);
 
 const args = minimist(process.argv.slice(2), options);
 const transactionDescription = args.description;
@@ -80,6 +79,7 @@ function handleView() {
     const dataString = fs.readFileSync(taskFilePath, "utf8").trim();
     if (dataString !== "") {
       dataObject = JSON.parse(dataString);
+      console.log(dataObject);
       return dataObject;
     }
     const emptyJson = "[]";
@@ -114,6 +114,7 @@ function handleAdd() {
     expenses.push(newExpense);
     fs.writeFileSync(taskFilePath, JSON.stringify(expenses, null, 2));
     console.log("succesfully created a new expense");
+    console.log(newExpense);
     return newExpense;
   } catch (error) {
     console.error(error);
