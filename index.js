@@ -54,16 +54,23 @@ switch (command) {
 }
 
 function handleView() {
-  dataObject = {};
   try {
     const dataString = fs.readFileSync(taskFilePath, "utf8").trim();
     if (dataString !== "") {
       dataObject = JSON.parse(dataString);
+      return dataObject;
     }
-    console.log(dataObject);
+    const emptyJson = "[]";
+    fs.writeFileSync(taskFilePath, emptyJson);
+    console.log(emptyJson);
   } catch (error) {
-    console.error(error.message);
+    if (error.code === "ENOENT") {
+      const emptyJson = "[]";
+      fs.writeFileSync(taskFilePath, emptyJson);
+    } else if (error.name === "SyntaxError") {
+      console.error(`bad syntax in json: ${error.message}`);
+    } else {
+      console.error(error);
+    }
   }
 }
-
-function handleAdd() {}
