@@ -8,7 +8,7 @@ const { json } = require("stream/consumers");
 
 const options = {
   string: ["description"],
-  string: ["id"],
+  number: ["id"],
   number: ["amount"],
   default: {
     description: "N/A",
