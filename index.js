@@ -144,3 +144,39 @@ function handleDelete() {
     console.error(error);
   }
 }
+
+function handleUpdate() {
+  try {
+    const expenses = handleView();
+    const idToUpdate = transactionID;
+    const newAmount = transactionAmount;
+    const newDescription = transactionDescription;
+
+    const itemToUpdate = expenses.find((item) => item.ID === idToUpdate);
+
+    if (!itemToUpdate) {
+      console.log(
+        `invalid input, the id[ ${idToUpdate} you inputted doesnt exist!`
+      );
+      return expenses;
+    }
+
+    if (newDescription) {
+      itemToUpdate.Description = newDescription;
+    }
+
+    if (
+      newAmount !== undefined &&
+      newAmount !== null &&
+      typeof newAmount !== "boolean"
+    ) {
+      itemToUpdate.Amount = newAmount;
+    }
+    fs.writeFileSync(taskFilePath, JSON.stringify(itemToUpdate, null, 2));
+    console.log("succesfully updated expense");
+    console.log(itemToUpdate);
+    return itemToUpdate;
+  } catch (error) {
+    console.error(error);
+  }
+}
