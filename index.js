@@ -3,7 +3,6 @@ const path = require("path");
 const taskFilePath = path.join(__dirname, "expenses.json");
 let dataObject = null;
 const minimist = require("minimist");
-const { json } = require("stream/consumers");
 //define option model
 
 const options = {
